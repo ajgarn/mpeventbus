@@ -67,3 +67,8 @@ Note that this broadcast will wake up the process for all events sent with the m
 
 ## Combine with EventBus
 Since MPEventBus uses EventBus internally, if you are already using EventBus you don't need to change your existing code. Calls to the EventBus.getDefault() instance will work just as normal. Instead, just replace EventBus with MPEventBus in those cases where you want to send an event to multiple processes. You still need to initialize MPEventBus in your Application class though.
+
+## License
+Copyright &copy; 2016 Anton Jansson
+
+The project is released under the [Apache License, Version 2.0](LICENSE)
