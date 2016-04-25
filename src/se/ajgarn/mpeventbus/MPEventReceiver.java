@@ -10,6 +10,11 @@ import org.greenrobot.eventbus.EventBus;
 /**
  * Receives EventBus events sent via {@link MPEventBus}. This needs to be registered
  * to each process.
+ * <p>
+ * The registration is performed automatically when you run {@link MPEventBus#init(Context)},
+ * which means that running processes always listens to events from other processes. You can
+ * also register this class as a {@link BroadcastReceiver} in your AndroidManifest.xml to
+ * start processes when events are to be received.
  */
 public class MPEventReceiver extends BroadcastReceiver {
 

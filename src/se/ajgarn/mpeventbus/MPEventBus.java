@@ -7,8 +7,15 @@ import android.util.Log;
 import org.greenrobot.eventbus.EventBus;
 
 /**
- * Custom implementation of {@link EventBus}. This implementation can send events on the event bus
- * over multiple processes.
+ * Event bus that sends events within a single process or over multiple processes.
+ * Use {@link #post(Object)} to send an event to all subscribers within the current process.
+ * Use {@link #postToAll(Parcelable)} to send an event to all subscribers on all processes
+ * within the application. Since the event object must be serialized to be sent between processes,
+ * there are more restrictions on its class type. Primitive types or using {@link Parcelable} is
+ * recommended since those types are the fastest to transform, but all implemented
+ * {@link #postToAll(Parcelable)} methods work fine.
+ * <p>
+ * This is a wrapper of {@link org.greenrobot.eventbus.EventBus} with extended functionality.
  */
 public class MPEventBus {
 

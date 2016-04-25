@@ -4,7 +4,8 @@ import android.content.Intent;
 import android.os.Parcelable;
 
 /**
- * @author Anton Jansson.
+ * Factory class creating {@link IntentMessageProducer}s for all types that can be sent
+ * via an {@link Intent}.
  */
 class IntentMessage {
     public static IntentMessageProducer get(final Parcelable event) {
