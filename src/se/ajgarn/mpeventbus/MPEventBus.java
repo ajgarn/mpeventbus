@@ -6,12 +6,14 @@ import android.os.Parcelable;
 import android.util.Log;
 import org.greenrobot.eventbus.EventBus;
 
+import java.io.Serializable;
+
 /**
  * Event bus that sends events within a single process or over multiple processes.
  * Use {@link #post(Object)} to send an event to all subscribers within the current process.
  * Use {@link #postToAll(Parcelable)} to send an event to all subscribers on all processes
  * within the application. Since the event object must be serialized to be sent between processes,
- * there are more restrictions on its class type. Primitive types or using {@link Parcelable} is
+ * there are more restrictions on its class type. Using {@link Parcelable} for complex objects is
  * recommended since those types are the fastest to transform, but all implemented
  * {@link #postToAll(Parcelable)} methods work fine.
  * <p>
@@ -22,7 +24,7 @@ public class MPEventBus {
     public static final String MULTI_PROCESS_INTENT_ACTION = "multi_process_event";
     public static final String MULTI_PROCESS_INTENT_EXTRA = "event";
 
-    private static final String TAG = MPEventBus.class.getSimpleName();
+    protected static final String TAG = MPEventBus.class.getSimpleName();
 
     private static MPEventBus instance;
 
@@ -43,19 +45,71 @@ public class MPEventBus {
         return instance;
     }
 
+    /**
+     * Posts an event to the event bus on the current process. Other processes will not get
+     * this event.
+     * <p>
+     * This is the same as calling {@link EventBus#post(Object)}
+     * @param event The event to post.
+     * @see EventBus#post(Object)
+     */
     public void post(Object event) {
         postInternal(event);
     }
 
     /**
-     * Posts and event to the event bus and also send an intent to add this event on other
+     * Posts an event to the event bus and also send an intent to add this event on other
+     * processes' EventBuses in the application.
+     * @param event The event to post.
+     * @see EventBus#post(Object)
+     */
+    public void postToAll(CharSequence event) {
+        postInternal(event);
+        sendIntent(IntentMessageFactory.get(event));
+    }
+
+    /**
+     * Posts an event to the event bus and also send an intent to add this event on other
+     * processes' EventBuses in the application.
+     * @param event The event to post.
+     * @see EventBus#post(Object)
+     */
+    public void postToAll(Bundle event) {
+        postInternal(event);
+        sendIntent(IntentMessageFactory.get(event));
+    }
+
+    /**
+     * Posts an event to the event bus and also send an intent to add this event on other
      * processes' EventBuses in the application.
      * @param event The event to post.
      * @see EventBus#post(Object)
      */
     public void postToAll(Parcelable event) {
         postInternal(event);
-        sendIntent(IntentMessage.get(event));
+        sendIntent(IntentMessageFactory.get(event));
+    }
+
+    /**
+     * Posts an event to the event bus and also send an intent to add this event on other
+     * processes' EventBuses in the application.
+     * @param event The event to post.
+     * @see EventBus#post(Object)
+     */
+    public void postToAll(Serializable event) {
+        postInternal(event);
+        sendIntent(IntentMessageFactory.get(event));
+    }
+
+    /**
+     * Posts an event to the event bus and also send an intent to add this event on other
+     * processes' EventBuses in the application.
+     * @param event The event to post.
+     * @see EventBus#post(Object)
+     */
+    public void postToAll(String event) {
+        postInternal(event);
+        sendIntent(IntentMessageFactory.get(event));
     }
 
     private void postInternal(Object event) {

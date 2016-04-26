@@ -21,7 +21,7 @@ public class MPEventReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         Object event = intent.getParcelableExtra(MPEventBus.MULTI_PROCESS_INTENT_EXTRA);
-        Log.d(MPEventReceiver.class.getSimpleName(), "Received event " + event);
+        Log.d(MPEventBus.TAG, "Received event " + event);
         EventBus.getDefault().post(event);
     }
 
