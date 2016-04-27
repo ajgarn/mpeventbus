@@ -119,15 +119,24 @@ public class MPEventBus {
         sendIntent(IntentMessageFactory.get(event));
     }
 
+    /**
+     * Returns the intent to be sent to other processes without any extra data.
+     * Add the event to send with putExtra(...).
+     */
+    protected static Intent getBaseIntent() {
+        Intent intent = new Intent();
+        intent.setAction(MULTI_PROCESS_INTENT_ACTION);
+        intent.addCategory(Intent.CATEGORY_DEFAULT);
+        return intent;
+    }
+
     private void postInternal(Object event) {
         Log.d(TAG, "Sending event " + event);
         EventBus.getDefault().post(event);
     }
 
     private void sendIntent(IntentMessageProducer eventContainer) {
-        Intent broadcastIntent = new Intent();
-        broadcastIntent.setAction(MULTI_PROCESS_INTENT_ACTION);
-        broadcastIntent.addCategory(Intent.CATEGORY_DEFAULT);
+        Intent broadcastIntent = getBaseIntent();
         eventContainer.putExtra(MULTI_PROCESS_INTENT_EXTRA, broadcastIntent);
         context.sendBroadcast(broadcastIntent);
     }

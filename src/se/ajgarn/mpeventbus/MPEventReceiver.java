@@ -26,8 +26,16 @@ public class MPEventReceiver extends BroadcastReceiver {
     }
 
     static void register(Context context) {
-        IntentFilter filter = new IntentFilter(MPEventBus.MULTI_PROCESS_INTENT_ACTION);
-        filter.addCategory(Intent.CATEGORY_DEFAULT);
-        context.registerReceiver(new MPEventReceiver(), filter);
+        if (!isRegisteredInManifest(context)) {
+            IntentFilter filter = new IntentFilter(MPEventBus.MULTI_PROCESS_INTENT_ACTION);
+            filter.addCategory(Intent.CATEGORY_DEFAULT);
+            context.registerReceiver(new MPEventReceiver(), filter);
+        }
+    }
+
+    private static boolean isRegisteredInManifest(Context context) {
+        Intent intent = MPEventBus.getBaseIntent();
+        String process = ProcessHelper.getCurrentProcess(context);
+        return ProcessHelper.hasBroadcastReceiver(process, intent, context);
     }
 }
