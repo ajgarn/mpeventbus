@@ -1,6 +1,7 @@
 package se.ajgarn.mpeventbus;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Parcelable;
 
 import java.io.Serializable;
