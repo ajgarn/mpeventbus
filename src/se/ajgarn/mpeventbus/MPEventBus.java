@@ -35,8 +35,14 @@ public class MPEventBus {
         MPEventReceiver.register(context);
     }
 
+    /**
+     * Initializes the event bus and sets up listeners for events sent by other processes.
+     * This method should be called in onCreate() from your Application class.
+     * @param context The application context.
+     */
     public static synchronized void init(Context context) {
-        instance = new MPEventBus(context);
+        if (instance == null)
+            instance = new MPEventBus(context);
     }
 
     public static MPEventBus getDefault() {
