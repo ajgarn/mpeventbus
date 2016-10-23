@@ -4,7 +4,7 @@ MPEventBus - Multi-Process EventBus
 
 MPEventBus is an extension to [greenrobot/EventBus](https://github.com/greenrobot/EventBus) that lets you send events between processes in your Android application.
 
-[greenrobot/EventBus](https://github.com/greenrobot/EventBus) lets you send arbitrary events on an event bus and your classes subscribe to those events. MPEventBus (or MultiProcessEventBus) also can send events via Intents and listen to events via BroadcastReceivers, which delegates all received events to the EventBus instance running on the current process.
+In [greenrobot/EventBus](https://github.com/greenrobot/EventBus), you can send arbitrary events that your classes subscribed to the event bus receive. MPEventBus can, in addition, send events via Intents and listen to events from other processes via BroadcastReceivers, which delegate all received events to the EventBus instance running on the current process.
 
 # Usage
 ## Initialization
