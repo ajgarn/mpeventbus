@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.io.Serializable;
 
@@ -117,6 +118,26 @@ public class MPEventBus {
     public void postToAll(String event) {
         postInternal(event);
         sendIntent(IntentMessageFactory.get(event));
+    }
+
+    /**
+     * Registers the given subscriber to receive events. Subscribers must call
+     * {@link #unregister(Object)} once they are no longer interested in receiving events.
+     * <p/>
+     * Subscribers have event handling methods that must be annotated by {@link Subscribe}.
+     * The Subscribe annotation also allows configuration like ThreadMode and priority.
+     * @see EventBus#register(Object)
+     */
+    public void register(Object subscriber) {
+        EventBus.getDefault().register(subscriber);
+    }
+
+    /**
+     * Unregisters the given subscriber from all event classes.
+     * @see EventBus#unregister(Object)
+     */
+    public void unregister(Object subscriber) {
+        EventBus.getDefault().unregister(subscriber);
     }
 
     /**
