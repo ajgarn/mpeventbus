@@ -74,6 +74,6 @@ You can use EventBus and MPEventBus at the same time, since MPEventBus delegates
 Feel free to send pull requests if you want to improve anything.
 
 ## License
-Copyright &copy; 2017 Anton Jansson
+Copyright &copy; 2016-2017 Anton Jansson
 
 The project is released under the [Apache License, Version 2.0](LICENSE)
