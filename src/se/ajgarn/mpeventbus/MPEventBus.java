@@ -23,10 +23,15 @@ import java.io.Serializable;
  */
 public class MPEventBus {
 
-    public static final String MULTI_PROCESS_INTENT_ACTION = "multi_process_event";
-    public static final String MULTI_PROCESS_INTENT_EXTRA = "event";
+    static final String MULTI_PROCESS_INTENT_ACTION = "multi_process_event";
+    static final String MULTI_PROCESS_INTENT_EXTRA = "event";
+    static final String MULTI_PROCESS_INTENT_EXTRA_TYPE = "event_type";
 
-    protected static final String TAG = MPEventBus.class.getSimpleName();
+    enum EventType {
+        BUNDLE, PARCELABLE, SERIALIZABLE, STRING, CHAR_SEQUENCE
+    }
+
+    static final String TAG = MPEventBus.class.getSimpleName();
 
     private static MPEventBus instance;
 
@@ -72,7 +77,7 @@ public class MPEventBus {
      * @see EventBus#post(Object)
      */
     public void postToAll(CharSequence event) {
-        postInternal(event);
+        Log.d(TAG, "Sending event to all processes: " + event);
         sendIntent(IntentMessageFactory.get(event));
     }
 
@@ -83,7 +88,7 @@ public class MPEventBus {
      * @see EventBus#post(Object)
      */
     public void postToAll(Bundle event) {
-        postInternal(event);
+        Log.d(TAG, "Sending event to all processes: " + event);
         sendIntent(IntentMessageFactory.get(event));
     }
 
@@ -94,7 +99,7 @@ public class MPEventBus {
      * @see EventBus#post(Object)
      */
     public void postToAll(Parcelable event) {
-        postInternal(event);
+        Log.d(TAG, "Sending event to all processes: " + event);
         sendIntent(IntentMessageFactory.get(event));
     }
 
@@ -105,7 +110,7 @@ public class MPEventBus {
      * @see EventBus#post(Object)
      */
     public void postToAll(Serializable event) {
-        postInternal(event);
+        Log.d(TAG, "Sending event to all processes: " + event);
         sendIntent(IntentMessageFactory.get(event));
     }
 
@@ -116,7 +121,7 @@ public class MPEventBus {
      * @see EventBus#post(Object)
      */
     public void postToAll(String event) {
-        postInternal(event);
+        Log.d(TAG, "Sending event to all processes: " + event);
         sendIntent(IntentMessageFactory.get(event));
     }
 
@@ -144,7 +149,7 @@ public class MPEventBus {
      * Returns the intent to be sent to other processes without any extra data.
      * Add the event to send with putExtra(...).
      */
-    protected static Intent getBaseIntent() {
+    static Intent getBaseIntent() {
         Intent intent = new Intent();
         intent.setAction(MULTI_PROCESS_INTENT_ACTION);
         intent.addCategory(Intent.CATEGORY_DEFAULT);
@@ -152,7 +157,7 @@ public class MPEventBus {
     }
 
     private void postInternal(Object event) {
-        Log.d(TAG, "Sending event " + event);
+        Log.d(TAG, "Sending event: " + event);
         EventBus.getDefault().post(event);
     }
 

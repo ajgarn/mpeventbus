@@ -20,6 +20,7 @@ If you don't have an Application class yet, create one in your package root.
     public class App extends Application {
         @Override
         public void onCreate() {
+            super.onCreate();
             MPEventBus.init(getApplicationContext());
         }
     }

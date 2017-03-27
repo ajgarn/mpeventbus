@@ -16,6 +16,7 @@ class IntentMessageFactory {
             @Override
             public void putExtra(String name, Intent intent) {
                 intent.putExtra(name, event);
+                intent.putExtra(MPEventBus.MULTI_PROCESS_INTENT_EXTRA_TYPE, MPEventBus.EventType.CHAR_SEQUENCE);
             }
         };
     }
@@ -24,6 +25,7 @@ class IntentMessageFactory {
             @Override
             public void putExtra(String name, Intent intent) {
                 intent.putExtra(name, event);
+                intent.putExtra(MPEventBus.MULTI_PROCESS_INTENT_EXTRA_TYPE, MPEventBus.EventType.BUNDLE);
             }
         };
     }
@@ -32,6 +34,7 @@ class IntentMessageFactory {
             @Override
             public void putExtra(String name, Intent intent) {
                 intent.putExtra(name, event);
+                intent.putExtra(MPEventBus.MULTI_PROCESS_INTENT_EXTRA_TYPE, MPEventBus.EventType.PARCELABLE);
             }
         };
     }
@@ -40,6 +43,7 @@ class IntentMessageFactory {
             @Override
             public void putExtra(String name, Intent intent) {
                 intent.putExtra(name, event);
+                intent.putExtra(MPEventBus.MULTI_PROCESS_INTENT_EXTRA_TYPE, MPEventBus.EventType.SERIALIZABLE);
             }
         };
     }
@@ -48,6 +52,7 @@ class IntentMessageFactory {
             @Override
             public void putExtra(String name, Intent intent) {
                 intent.putExtra(name, event);
+                intent.putExtra(MPEventBus.MULTI_PROCESS_INTENT_EXTRA_TYPE, MPEventBus.EventType.STRING);
             }
         };
     }
